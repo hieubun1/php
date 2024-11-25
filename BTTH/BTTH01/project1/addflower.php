@@ -39,7 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $flowers[] = $newFlower;
 
     // Ghi lại mảng flowers vào file products.php mà không làm mất dữ liệu cũ
-    file_put_contents('products.php', '<?php $flowers = ' . var_export($flowers, true) . ';');
+    // file_put_contents('products.php', '<?php $flowers = ' . var_export($flowers, true) . ';');
+    $data_json = json_encode($flowers);
+    file_put_contents("products.json", $data_json);
 
     // Chuyển hướng về index.php sau khi thêm sản phẩm
     header("Location: index.php");

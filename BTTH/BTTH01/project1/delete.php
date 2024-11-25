@@ -9,8 +9,14 @@ if ($flowers === null) {
 
 // Kiểm tra xem có tham số 'index' trong URL không
 if (isset($_GET['index']) && is_numeric($_GET['index'])) {
-    $index = $_GET['index'];
-
+    $index =(int) $_GET['index'];
+    echo $index;
+    echo gettype($index);
+    foreach ($flowers as $key=>$flower) {
+    echo "<pre>";
+    echo json_encode($key, JSON_PRETTY_PRINT);
+    echo "</pre>";
+    }
     // Kiểm tra xem chỉ số sản phẩm có hợp lệ không
     if (isset($flowers[$index])) {
         // Xóa sản phẩm tại vị trí index
@@ -20,7 +26,7 @@ if (isset($_GET['index']) && is_numeric($_GET['index'])) {
         $flowers = array_values($flowers);
 
         // In ra mảng sau khi xóa (kiểm tra)
-        print_r($flowers);
+        
 
         // Lưu lại mảng sau khi xóa vào file JSON
         $json_data = json_encode($flowers);
@@ -34,7 +40,7 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     echo "Lỗi mã hóa JSON: " . json_last_error_msg();
 } else {
     if (file_put_contents('products.json', $json_data)) {
-        echo "Sản phẩm đã được xóa thành công!";
+        // echo "Sản phẩm đã được xóa thành công!";
         header('Location: index.php');
         exit;
     } else {
