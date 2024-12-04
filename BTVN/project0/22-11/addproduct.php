@@ -1,20 +1,36 @@
 <?php
-// Tạo mảng cố định để lưu trữ sản phẩm
-include("products.php");
-
-// Lấy thông tin từ form
-$name = $_POST['name']??"";
-$price = $_POST['price']??"";
-$description = $_POST['description']??"";
-
-// Thêm sản phẩm mới vào mảng
-$newProduct = ['name' => $name, 'price' => $price, 'description' => $description];
-$products[] = $newProduct;
-
 session_start();
-$_SESSION["products"] = $products;
+include("connect.php"); // Đảm bảo include file chứa hàm getConnection()
 
+// Lấy kết nối
+$conn = getConnection();
 
+// Kiểm tra nếu kết nối thành công
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+// Lấy dữ liệu từ form
+$name = $_POST['Name'] ?? "";
+$price = $_POST['Price'] ?? "";
+
+// Chuẩn bị truy vấn
+$stmt = $conn->prepare("INSERT INTO `sanpham` (`Name`, `Price`) VALUES (?, ?)");
+if ($stmt) {
+    $stmt->bind_param("si", $name, $price);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        echo "Thêm sản phẩm thành công!";
+    } else {
+        echo "Không thể thêm sản phẩm: " . $stmt->error;
+    }
+
+    $stmt->close();
+} else {
+    echo "Lỗi chuẩn bị truy vấn: " . $conn->error;
+}
+
+// Đóng kết nối
+$conn->close();
 ?>
-
-

@@ -1,33 +1,38 @@
 <?php
-// Mảng sản phẩm cố định
-include("products.php");
+// Bao gồm file kết nối
+include('connect.php');
 
-// Lấy dữ liệu từ form
+// Kiểm tra dữ liệu từ form
+if (!isset($_POST['id'], $_POST['name'], $_POST['name'])) {
+    die("Dữ liệu không hợp lệ!");
+}
+
 $id = $_POST['id'];
 $name = $_POST['name'];
 $price = $_POST['price'];
 
+// Kết nối cơ sở dữ liệu
+$conn = getConnection();
 
-// Cập nhật thông tin sản phẩm
+// Cập nhật dữ liệu sản phẩm
+$sql = "UPDATE sanpham SET Name = ?, Price = ? WHERE id = ?";
+$stmt = $conn->prepare($sql);
 
-$productToEdit = $products[$id];
-$productToEdit["name"] = $name;
-$productToEdit["price"] = $price;
-$products[$id] = $productToEdit;
-
-// Hiển thị danh sách sản phẩm sau khi cập nhật
-echo "<h1>Danh sách sản phẩm sau khi cập nhật</h1>";
-echo "<ul>";
-foreach ($products as $product) {
-    echo "<li>";
-    echo "Tên: " . $product['name'] . "<br>";
-    echo "Giá: " . $product['price'] . " VND<br>";
-    echo "</li><br>";
+// Kiểm tra lỗi chuẩn bị câu lệnh
+if ($stmt === false) {
+    die("Lỗi khi chuẩn bị câu lệnh: " . $conn->error);
 }
-echo "</ul>";
 
-echo "<a href='product_list.php'>Quay lại danh sách sản phẩm</a>";
+$stmt->bind_param("sdi", $name, $price, $id);
 
-session_start();
-$_SESSION["products"] = $products;
+// Thực thi câu lệnh
+if ($stmt->execute()) {
+    echo "Cập nhật sản phẩm thành công!";
+} else {
+    echo "Lỗi khi cập nhật sản phẩm: " . $stmt->error;
+}
+
+// Đóng kết nối
+$stmt->close();
+$conn->close();
 ?>

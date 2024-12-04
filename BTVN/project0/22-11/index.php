@@ -12,6 +12,7 @@
     include("header.php");
     include("main.php");
     include("footer.php");
+    // include("products.php");
     ?>
 </body>
 <script src="//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

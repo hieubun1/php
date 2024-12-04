@@ -38,7 +38,7 @@ include 'products.php';
     // Lấy dữ liệu sản phẩm cho trang hiện tại
     $current_page_items = array_slice($flowers, $start_index, $items_per_page);
     ?>
-    <a href="admin.php"><button>Admin</button></a>
+    <a href="admin.php"><button type="button" class="btn btn-primary">Vào Trang Admin</button></a>
     <div class="row row-cols-1 row-cols-md-3 g-4">
     <?php foreach ($current_page_items as $real_index => $flower): ?>
     <div class="col">

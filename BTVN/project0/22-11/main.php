@@ -1,15 +1,10 @@
 <?php
-session_start();
-// Khởi tạo dữ liệu mẫu cho session nếu chưa có
-if (!isset($_SESSION["products"])) {
-  $_SESSION["products"] = [
-      ["name" => "name", "price" => "price"],
-  ];
-}
-
-// Gán giá trị từ session vào biến $products
-$products = $_SESSION["products"];
+// session_start();
+include("./products.php");
+// Lấy danh sách sản phẩm từ session
+// $products = isset($_SESSION["products"]) ? $_SESSION["products"] : [];
 ?>
+
 <div class="w-75 m-auto py-5">
    <a href="add.html"><button type="button" class="btn btn-success">Add New Product</button></a> 
    <table class="table caption-top">
@@ -22,14 +17,29 @@ $products = $_SESSION["products"];
          </tr>
       </thead>
       <tbody>
-         <?php foreach ($products as $index => $product) : ?>
+         <?php if (!empty($products)) : ?>
+            <?php foreach ($products as $index => $product) : ?>
+               <tr>
+                  <th scope="row"><?= htmlspecialchars($product["Name"]) ?></th>
+                  <td><?= htmlspecialchars($product["Price"]) ?></td>
+                  <td>
+                     <a href="edit.php?index=<?= $product["id"] ?>">
+                        <i class="fa-solid fa-pen-to-square" style="color: #74C0FC;"></i>
+                     </a>
+                  </td>
+                  <td>
+                     <a href="delete.php?index=<?= $product["id"] ?>" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');">
+                        <i class="fa-solid fa-trash" style="color: #74C0FC;"></i>
+                     </a>
+                  </td>
+               </tr>
+            <?php endforeach; ?>
+         <?php else : ?>
             <tr>
-               <th scope="row"><?= htmlspecialchars($product["name"]) ?></th>
-               <td><?= htmlspecialchars($product["price"]) ?></td>
-               <td><a href="edit.php?index=<?= $index ?>"><i class="fa-solid fa-pen-to-square" style="color: #74C0FC;"></i></a></td>
-               <td><i class="fa-solid fa-trash" style="color: #74C0FC;"></i></td>
+               <td colspan="4" class="text-center">Không có sản phẩm nào.</td>
             </tr>
-         <?php endforeach; ?>
+         <?php endif; ?>
       </tbody>
    </table>
 </div>
+
