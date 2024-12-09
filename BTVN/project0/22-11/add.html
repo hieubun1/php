@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Sản Phẩm</title>
+</head>
+<body>
+    <h1>Thêm Sản Phẩm</h1>
+    <form action="addproduct.php" method="POST">
+        <label for="Name">Tên sản phẩm:</label><br>
+        <input type="text" id="Name" name="Name" required><br><br>
+
+        <label for="Price">Giá sản phẩm:</label><br>
+        <input type="number" id="Price" name="Price" required><br><br>
+
+        <label for="description">Mô tả:</label><br>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <button type="submit">Thêm sản phẩm</button>
+    </form>
+</body>
+</html>
+

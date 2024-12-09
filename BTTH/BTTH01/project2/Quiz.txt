@@ -1,0 +1,20 @@
+Thành Phần nào sau đây Không phải là một thành phần giao diện người dung (UI) trong Android
+A. TextView
+B. Button
+C. Service
+D. ImageView
+ANSWER: C
+
+Layout nào thường được sử dung để sắp xếp các thành phần UI theo chiều dọc hoặc chiều ngang
+A. RelativeLayout
+B. LinearLayout
+C. FrameLayout
+D. ConstraintLayout
+ANSWER: B
+
+Intent trong Android được sử dung để làm gì?
+A. Hiển thị thông báo cho người dùng
+B. Lưu trữ dữ lieu
+C. Khởi chạy Activity
+D. Xử Lý sự kiện chạm
+ANSWER: C
